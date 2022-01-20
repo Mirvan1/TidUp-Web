@@ -1,0 +1,45 @@
+﻿@using TidUpWeb.Models
+@model List<TBLPRODUCT>
+@{
+    ViewBag.Title = "ExportData";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+
+
+<div class="table-export">
+    @if(User.IsInRole("Manager"))
+    {
+    <a href="/Main/ExportDataButton">Export Data</a>
+    }
+    <table id="export-data-table">
+
+        <tr>
+            <th>ITEM</th>
+            <th>PRICE</th>
+            <th>QUANTITY</th>
+            <th>DATE</th>
+            <th>BARCODE</th>
+            <th>FOLDER</th>
+        </tr>
+
+
+        @foreach (var x in Model)
+        {
+            <tr onclick="window.location = '/Main/ItemDetail/@x.PRODUCTID'">
+                <td>@x.NAME</td>
+                <td>@x.PRICE</td>
+                <td>@x.QUANTITY</td>
+                <td>@x.DATE</td>
+                <td>@x.BARCODE</td>
+                <td>@x.TBLFOLDER.FOLDERNAME</td>
+            </tr>
+        }
+     
+            
+    </table>
+
+
+    @*@Html.ActionLink("Download", "ExportDataButton")*@
+    </div>
+  

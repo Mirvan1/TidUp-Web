@@ -1,0 +1,29 @@
+﻿
+
+
+<div class="addfolder-modal" id="addfolder-modal">
+    <div class="addfolder-modal-content">
+        <div class="addfolder-modal-header">
+            <span class="addfolder-close">&times;</span>
+            <h2>Add Folder</h2>
+        </div>
+
+        <div class="addfolder-modal-body">
+            @*<h3>Welcome Back!</h3>
+            <p>Lorem ipsum dolor,sit auris et ex at eros suscipit</p>*@
+            <div class="addfolder-form">
+                @using(Html.BeginForm("AddFolder", "Main", FormMethod.Post))
+                {
+                <input type="hidden" name="FOLDERID" />
+                    <input type="text" name="FOLDERNAME" placeholder="Add Folder">
+                    <input type="submit" name="AddFolder" value="Add Folder">
+                }
+            </div>
+        </div>
+
+        <div class="addfolder-modal-footer">
+            sdfsdf
+        </div>
+    </div>
+</div>
+

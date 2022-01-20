@@ -1,0 +1,107 @@
+﻿@using TidUpWeb.Models
+@model List<TBLLOGS>
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+<div class="dash-header">
+
+</div>
+
+<div class="dashboard-cards">
+    <div class="folder-card">
+
+        <h4>Folders</h4>
+        <p>@ViewBag.numFolder</p>
+        <i class="fas fa-folder fa-5x"></i>
+    </div>
+    <div class="items-card">
+
+        <h4>Items</h4>
+        <p>@ViewBag.numItems</p>
+        <i class="fas fa-layer-group fa-5x"></i>
+    </div>
+
+    <div class="manager-card">
+
+        <h4>Manager</h4>
+        <p>@ViewBag.numManager</p>
+        <i class="fas fa-user-tie fa-5x"></i>
+    </div>
+
+    <div class="employee-card">
+
+        <h4>Employee</h4>
+        <p>@ViewBag.numEmployee</p>
+        <i class="fas fa-user fa-5x"></i>
+    </div>
+
+    <div class="value-card">
+
+        <h4>Total Value</h4>
+        <p>@ViewBag.totalMoney</p>
+        <i class="fas fa-money-bill-alt fa-5x"></i>
+    </div>
+
+    <div class="quantity-card">
+
+        <h4>Quantity</h4>
+        <p>@ViewBag.totalQuantity</p>
+        <i class="fas fa-sort-numeric-up-alt fa-5x"></i>
+    </div>
+</div>
+
+
+
+
+
+<div class="recent-act">
+    <h4>Recent Activity</h4>
+    <ul class="ulist-recent">
+        @foreach (var x in Model)
+        {
+            if (x.ACTION.Equals("UpdateFolder") && x.FOLDERID!= null && x.FOLDERID != 0)
+            {
+                <li>
+                    <a>@x.USERNAME updated @x.TBLFOLDER.FOLDERNAME folder</a>
+                    <p title="@Convert.ToDateTime(x.DATE).ToString("t")">@Convert.ToDateTime(x.DATE).ToString("dd/MM/yyyy")</p>
+                </li>
+            }
+
+            if (x.ACTION.Equals("DeleteFolder") && x.FOLDERID != null && x.FOLDERID !=0)
+            {
+                <li>
+                    <a>@x.USERNAME deleted @x.TBLFOLDER.FOLDERNAME  folder</a>
+                    <p title="@Convert.ToDateTime(x.DATE).ToString("t")">@Convert.ToDateTime(x.DATE).ToString("dd/MM/yyyy")</p>
+                </li>
+            }
+
+            if (x.ACTION.Equals("DeleteItem") && x.PRODUCTID!=null)
+            {
+                <li>
+                    <a>@x.USERNAME deleted @x.TBLPRODUCT.NAME item</a>
+                    <p title="@Convert.ToDateTime(x.DATE).ToString("t")">@Convert.ToDateTime(x.DATE).ToString("dd/MM/yyyy")</p>
+                </li>
+            }
+
+            if (x.ACTION.Equals("GetItemInfo") && x.PRODUCTID != null)
+            {
+                <li>
+                    <a>@x.USERNAME updated @x.TBLPRODUCT.NAME item</a>
+                    <p title="@Convert.ToDateTime(x.DATE).ToString("t")">@Convert.ToDateTime(x.DATE).ToString("dd/MM/yyyy")</p>
+                </li>
+            }
+
+
+        }
+    
+    </ul>
+
+
+
+</div>
+
+
+
+

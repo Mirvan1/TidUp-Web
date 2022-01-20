@@ -1,0 +1,62 @@
+﻿@model TidUpWeb.Models.TBLPRODUCT
+
+
+@{
+    ViewBag.Title = "ItemDetail";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+
+    <div class="detail-container">
+      
+
+        <div class="items-section">
+            <div class="items-section-nav">
+                <div class="items-texts">
+                    <div class="custom-well">
+                        <h2> <a href="/Main/MainPage" style="text-decoration:none;color:black;">Folders</a> \<a href="/Main/ItemList/@Model.TBLFOLDER.FOLDERID" style="text-decoration:none;color:black; "> @Model.TBLFOLDER.FOLDERNAME</a>\ @Model.NAME </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-detail">
+                <div class="item-image">
+                    <img src="@Model.PHOTO" alt="">
+                </div>
+                <div class="item-name">
+                    @if (Model.NAME.Length > 20)
+                    {
+                        <h2 style="font-size:40px;">@Model.NAME</h2>
+                    }
+                    else
+                    {
+                    <h2>@Model.NAME</h2>
+                    }
+
+                    <div class="item-prop">
+                        <p>@Model.NOTE</p>
+                        <p>Price: @Model.PRICE</p>
+                        <p>Expiry Date: @Convert.ToDateTime(Model.DATE).ToString("dd/MM/yyyy")<p>
+                        <p>Barcode: @Model.BARCODE</p>
+                        <p>Quantity: @Model.QUANTITY</p>
+                        @if (User.IsInRole("Manager"))
+                        {
+                        <div class="detail-btns">
+                            <button type="button" name="updatebtn" id="updatebtn" class="update">Update</button>
+                           @Html.Action("GetItemInfo", "Main")
+                            @*<button type="button" class="delete">Delete</button>*@
+                        <a href="/Main/DeleteItem/@Model.PRODUCTID">Delete</a>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<script src="~/rescss7/update-modal.js"></script>

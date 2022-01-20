@@ -1,0 +1,32 @@
+﻿@model TidUpWeb.Models.TBLUSER
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+
+
+    <div class="profile">
+        @using (Html.BeginForm("UpdateProfile", "Profile", FormMethod.Post))
+        { 
+            <div class="letter-img">
+                <div class="circle">
+                    <h3>@Model.USERNAME.Substring(0,1)</h3>
+                </div>
+                @Html.TextBoxFor(m => m.TBLCOMPANY.COMPANYNAME, new { @class="text-box-cl", @readonly = true })
+               @Html.TextBoxFor(m => m.TBLCOMPANY.COMPANYCODE, new { @class="text-box-cl",@readonly=true})
+                @Html.HiddenFor(m=>m.ID)
+                @*@Html.LabelFor(m => m.TBLCOMPANY.COMPANYNAME, new {@class="text-box-cl"})*@
+                @*<input type="text" name="COMPANYNAME" value="Company Name" readonly>
+                <input type="text" name="COMPANYCODE" value="Company Code" readonly>*@
+            </div>
+            <div class="prof-info">
+                @Html.TextBoxFor(m => m.USERNAME, new { @class="text-box-cl"})
+                @Html.TextBoxFor(m=>m.EMAIL,new  {@class="text-box-cl", })
+                <input type="submit" name="Save" value="Save Changes">
+            </div>
+
+        }
+    </div>
+
+

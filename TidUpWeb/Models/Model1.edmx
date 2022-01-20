@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TidUpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TBLCOMPANY">
+          <Key>
+            <PropertyRef Name="COMPANYID" />
+          </Key>
+          <Property Name="COMPANYID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COMPANYCODE" Type="varchar" MaxLength="70" />
+          <Property Name="COMPANYNAME" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBLFOLDER">
+          <Key>
+            <PropertyRef Name="FOLDERID" />
+          </Key>
+          <Property Name="FOLDERID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FOLDERNAME" Type="varchar" MaxLength="50" />
+          <Property Name="COMPANYID" Type="int" />
+          <Property Name="STATUS" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBLLOGS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ACTION" Type="varchar" MaxLength="100" />
+          <Property Name="CONTROLLER" Type="varchar" MaxLength="50" />
+          <Property Name="DATE" Type="datetime" />
+          <Property Name="INFO" Type="varchar" MaxLength="50" />
+          <Property Name="USERNAME" Type="varchar" MaxLength="70" />
+          <Property Name="COMPANYID" Type="int" />
+          <Property Name="FOLDERID" Type="int" />
+          <Property Name="PRODUCTID" Type="int" />
+        </EntityType>
+        <EntityType Name="TBLPRODUCT">
+          <Key>
+            <PropertyRef Name="PRODUCTID" />
+          </Key>
+          <Property Name="PRODUCTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="70" />
+          <Property Name="PRICE" Type="decimal" Precision="30" Scale="2" />
+          <Property Name="DATE" Type="datetime" />
+          <Property Name="BARCODE" Type="bigint" />
+          <Property Name="NOTE" Type="varchar(max)" />
+          <Property Name="FOLDERID" Type="int" />
+          <Property Name="PHOTO" Type="varchar(max)" />
+          <Property Name="STATUS" Type="bit" />
+          <Property Name="QUANTITY" Type="int" />
+        </EntityType>
+        <EntityType Name="TBLUSER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="70" />
+          <Property Name="USERNAME" Type="varchar" MaxLength="70" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="30" />
+          <Property Name="ROLE" Type="varchar" MaxLength="20" />
+          <Property Name="COMPANYID" Type="int" />
+          <Property Name="STATUS" Type="bit" />
+        </EntityType>
+        <Association Name="FK_TBLFOLDER_TBLCOMPANY">
+          <End Role="TBLCOMPANY" Type="Self.TBLCOMPANY" Multiplicity="0..1" />
+          <End Role="TBLFOLDER" Type="Self.TBLFOLDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLCOMPANY">
+              <PropertyRef Name="COMPANYID" />
+            </Principal>
+            <Dependent Role="TBLFOLDER">
+              <PropertyRef Name="COMPANYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLLOGS_TBLFOLDER">
+          <End Role="TBLFOLDER" Type="Self.TBLFOLDER" Multiplicity="0..1" />
+          <End Role="TBLLOGS" Type="Self.TBLLOGS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLFOLDER">
+              <PropertyRef Name="FOLDERID" />
+            </Principal>
+            <Dependent Role="TBLLOGS">
+              <PropertyRef Name="FOLDERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLLOGS_TBLPRODUCT">
+          <End Role="TBLPRODUCT" Type="Self.TBLPRODUCT" Multiplicity="0..1" />
+          <End Role="TBLLOGS" Type="Self.TBLLOGS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLPRODUCT">
+              <PropertyRef Name="PRODUCTID" />
+            </Principal>
+            <Dependent Role="TBLLOGS">
+              <PropertyRef Name="PRODUCTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLPRODUCT_TBLFOLDER">
+          <End Role="TBLFOLDER" Type="Self.TBLFOLDER" Multiplicity="0..1" />
+          <End Role="TBLPRODUCT" Type="Self.TBLPRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLFOLDER">
+              <PropertyRef Name="FOLDERID" />
+            </Principal>
+            <Dependent Role="TBLPRODUCT">
+              <PropertyRef Name="FOLDERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLUSER_TBLCOMPANY">
+          <End Role="TBLCOMPANY" Type="Self.TBLCOMPANY" Multiplicity="0..1" />
+          <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLCOMPANY">
+              <PropertyRef Name="COMPANYID" />
+            </Principal>
+            <Dependent Role="TBLUSER">
+              <PropertyRef Name="COMPANYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TidUpModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLCOMPANY" EntityType="Self.TBLCOMPANY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLFOLDER" EntityType="Self.TBLFOLDER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLLOGS" EntityType="Self.TBLLOGS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLPRODUCT" EntityType="Self.TBLPRODUCT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLUSER" EntityType="Self.TBLUSER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBLFOLDER_TBLCOMPANY" Association="Self.FK_TBLFOLDER_TBLCOMPANY">
+            <End Role="TBLCOMPANY" EntitySet="TBLCOMPANY" />
+            <End Role="TBLFOLDER" EntitySet="TBLFOLDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLLOGS_TBLFOLDER" Association="Self.FK_TBLLOGS_TBLFOLDER">
+            <End Role="TBLFOLDER" EntitySet="TBLFOLDER" />
+            <End Role="TBLLOGS" EntitySet="TBLLOGS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLLOGS_TBLPRODUCT" Association="Self.FK_TBLLOGS_TBLPRODUCT">
+            <End Role="TBLPRODUCT" EntitySet="TBLPRODUCT" />
+            <End Role="TBLLOGS" EntitySet="TBLLOGS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLPRODUCT_TBLFOLDER" Association="Self.FK_TBLPRODUCT_TBLFOLDER">
+            <End Role="TBLFOLDER" EntitySet="TBLFOLDER" />
+            <End Role="TBLPRODUCT" EntitySet="TBLPRODUCT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLUSER_TBLCOMPANY" Association="Self.FK_TBLUSER_TBLCOMPANY">
+            <End Role="TBLCOMPANY" EntitySet="TBLCOMPANY" />
+            <End Role="TBLUSER" EntitySet="TBLUSER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TidUpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TBLCOMPANY">
+          <Key>
+            <PropertyRef Name="COMPANYID" />
+          </Key>
+          <Property Name="COMPANYID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COMPANYCODE" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANYNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBLFOLDER" Relationship="Self.FK_TBLFOLDER_TBLCOMPANY" FromRole="TBLCOMPANY" ToRole="TBLFOLDER" />
+          <NavigationProperty Name="TBLUSER" Relationship="Self.FK_TBLUSER_TBLCOMPANY" FromRole="TBLCOMPANY" ToRole="TBLUSER" />
+        </EntityType>
+        <EntityType Name="TBLFOLDER">
+          <Key>
+            <PropertyRef Name="FOLDERID" />
+          </Key>
+          <Property Name="FOLDERID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FOLDERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANYID" Type="Int32" />
+          <NavigationProperty Name="TBLCOMPANY" Relationship="Self.FK_TBLFOLDER_TBLCOMPANY" FromRole="TBLFOLDER" ToRole="TBLCOMPANY" />
+          <NavigationProperty Name="TBLPRODUCT" Relationship="Self.FK_TBLPRODUCT_TBLFOLDER" FromRole="TBLFOLDER" ToRole="TBLPRODUCT" />
+          <Property Name="STATUS" Type="Boolean" />
+          <NavigationProperty Name="TBLLOGS" Relationship="TidUpModel.FK_TBLLOGS_TBLFOLDER" FromRole="TBLFOLDER" ToRole="TBLLOGS" />
+        </EntityType>
+        <EntityType Name="TBLPRODUCT">
+          <Key>
+            <PropertyRef Name="PRODUCTID" />
+          </Key>
+          <Property Name="PRODUCTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="PRICE" Type="Decimal" Precision="30" Scale="2" />
+          <Property Name="DATE" Type="DateTime" Precision="3" />
+          <Property Name="BARCODE" Type="Int32" />
+          <Property Name="NOTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FOLDERID" Type="Int32" />
+          <NavigationProperty Name="TBLFOLDER" Relationship="Self.FK_TBLPRODUCT_TBLFOLDER" FromRole="TBLPRODUCT" ToRole="TBLFOLDER" />
+          <Property Name="PHOTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="QUANTITY" Type="Int32" />
+          <NavigationProperty Name="TBLLOGS" Relationship="TidUpModel.FK_TBLLOGS_TBLPRODUCT" FromRole="TBLPRODUCT" ToRole="TBLLOGS" />
+        </EntityType>
+        <EntityType Name="TBLUSER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMAIL" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ROLE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANYID" Type="Int32" />
+          <Property Name="STATUS" Type="Boolean" />
+          <NavigationProperty Name="TBLCOMPANY" Relationship="Self.FK_TBLUSER_TBLCOMPANY" FromRole="TBLUSER" ToRole="TBLCOMPANY" />
+        </EntityType>
+        <Association Name="FK_TBLFOLDER_TBLCOMPANY">
+          <End Role="TBLCOMPANY" Type="Self.TBLCOMPANY" Multiplicity="0..1" />
+          <End Role="TBLFOLDER" Type="Self.TBLFOLDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLCOMPANY">
+              <PropertyRef Name="COMPANYID" />
+            </Principal>
+            <Dependent Role="TBLFOLDER">
+              <PropertyRef Name="COMPANYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLUSER_TBLCOMPANY">
+          <End Role="TBLCOMPANY" Type="Self.TBLCOMPANY" Multiplicity="0..1" />
+          <End Role="TBLUSER" Type="Self.TBLUSER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLCOMPANY">
+              <PropertyRef Name="COMPANYID" />
+            </Principal>
+            <Dependent Role="TBLUSER">
+              <PropertyRef Name="COMPANYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLPRODUCT_TBLFOLDER">
+          <End Role="TBLFOLDER" Type="Self.TBLFOLDER" Multiplicity="0..1" />
+          <End Role="TBLPRODUCT" Type="Self.TBLPRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLFOLDER">
+              <PropertyRef Name="FOLDERID" />
+            </Principal>
+            <Dependent Role="TBLPRODUCT">
+              <PropertyRef Name="FOLDERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TIDUPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TBLCOMPANY" EntityType="Self.TBLCOMPANY" />
+          <EntitySet Name="TBLFOLDER" EntityType="Self.TBLFOLDER" />
+          <EntitySet Name="TBLPRODUCT" EntityType="Self.TBLPRODUCT" />
+          <EntitySet Name="TBLUSER" EntityType="Self.TBLUSER" />
+          <AssociationSet Name="FK_TBLFOLDER_TBLCOMPANY" Association="Self.FK_TBLFOLDER_TBLCOMPANY">
+            <End Role="TBLCOMPANY" EntitySet="TBLCOMPANY" />
+            <End Role="TBLFOLDER" EntitySet="TBLFOLDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLUSER_TBLCOMPANY" Association="Self.FK_TBLUSER_TBLCOMPANY">
+            <End Role="TBLCOMPANY" EntitySet="TBLCOMPANY" />
+            <End Role="TBLUSER" EntitySet="TBLUSER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLPRODUCT_TBLFOLDER" Association="Self.FK_TBLPRODUCT_TBLFOLDER">
+            <End Role="TBLFOLDER" EntitySet="TBLFOLDER" />
+            <End Role="TBLPRODUCT" EntitySet="TBLPRODUCT" />
+          </AssociationSet>
+          <EntitySet Name="TBLLOGS" EntityType="TidUpModel.TBLLOGS" />
+          <AssociationSet Name="FK_TBLLOGS_TBLPRODUCT" Association="TidUpModel.FK_TBLLOGS_TBLPRODUCT">
+            <End Role="TBLPRODUCT" EntitySet="TBLPRODUCT" />
+            <End Role="TBLLOGS" EntitySet="TBLLOGS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLLOGS_TBLFOLDER" Association="TidUpModel.FK_TBLLOGS_TBLFOLDER">
+            <End Role="TBLFOLDER" EntitySet="TBLFOLDER" />
+            <End Role="TBLLOGS" EntitySet="TBLLOGS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TBLLOGS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ACTION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CONTROLLER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DATE" Type="DateTime" Precision="3" />
+          <Property Name="INFO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANYID" Type="Int32" />
+          <Property Name="FOLDERID" Type="Int32" />
+          <Property Name="PRODUCTID" Type="Int32" />
+          <NavigationProperty Name="TBLPRODUCT" Relationship="TidUpModel.FK_TBLLOGS_TBLPRODUCT" FromRole="TBLLOGS" ToRole="TBLPRODUCT" />
+          <NavigationProperty Name="TBLFOLDER" Relationship="TidUpModel.FK_TBLLOGS_TBLFOLDER" FromRole="TBLLOGS" ToRole="TBLFOLDER" />
+        </EntityType>
+        <Association Name="FK_TBLLOGS_TBLPRODUCT">
+          <End Type="TidUpModel.TBLPRODUCT" Role="TBLPRODUCT" Multiplicity="0..1" />
+          <End Type="TidUpModel.TBLLOGS" Role="TBLLOGS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLPRODUCT">
+              <PropertyRef Name="PRODUCTID" />
+            </Principal>
+            <Dependent Role="TBLLOGS">
+              <PropertyRef Name="PRODUCTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLLOGS_TBLFOLDER">
+          <End Type="TidUpModel.TBLFOLDER" Role="TBLFOLDER" Multiplicity="0..1" />
+          <End Type="TidUpModel.TBLLOGS" Role="TBLLOGS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLFOLDER">
+              <PropertyRef Name="FOLDERID" />
+            </Principal>
+            <Dependent Role="TBLLOGS">
+              <PropertyRef Name="FOLDERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TidUpModelStoreContainer" CdmEntityContainer="TIDUPEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TidUpModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLCOMPANY">
+            <EntityTypeMapping TypeName="TidUpModel.TBLCOMPANY">
+              <MappingFragment StoreEntitySet="TBLCOMPANY">
+                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
+                <ScalarProperty Name="COMPANYCODE" ColumnName="COMPANYCODE" />
+                <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLFOLDER">
+            <EntityTypeMapping TypeName="TidUpModel.TBLFOLDER">
+              <MappingFragment StoreEntitySet="TBLFOLDER">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="FOLDERID" ColumnName="FOLDERID" />
+                <ScalarProperty Name="FOLDERNAME" ColumnName="FOLDERNAME" />
+                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLPRODUCT">
+            <EntityTypeMapping TypeName="TidUpModel.TBLPRODUCT">
+              <MappingFragment StoreEntitySet="TBLPRODUCT">
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="PHOTO" ColumnName="PHOTO" />
+                <ScalarProperty Name="PRODUCTID" ColumnName="PRODUCTID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
+                <ScalarProperty Name="NOTE" ColumnName="NOTE" />
+                <ScalarProperty Name="FOLDERID" ColumnName="FOLDERID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLUSER">
+            <EntityTypeMapping TypeName="TidUpModel.TBLUSER">
+              <MappingFragment StoreEntitySet="TBLUSER">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLLOGS">
+            <EntityTypeMapping TypeName="TidUpModel.TBLLOGS">
+              <MappingFragment StoreEntitySet="TBLLOGS">
+                <ScalarProperty Name="PRODUCTID" ColumnName="PRODUCTID" />
+                <ScalarProperty Name="FOLDERID" ColumnName="FOLDERID" />
+                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="INFO" ColumnName="INFO" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="CONTROLLER" ColumnName="CONTROLLER" />
+                <ScalarProperty Name="ACTION" ColumnName="ACTION" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,29 @@
+﻿
+@model TidUpWeb.Models.TBLFOLDER
+
+<div class="folder-modal" id="folder-modal-@Model.FOLDERID">
+    <div class="folder-modal-content">
+        <div class="folder-modal-header">
+            <span class="folder-close" onclick="closeModal(@Model.FOLDERID)">&times;</span>
+            <h2>Update Folder</h2>
+        </div>
+
+        <div class="folder-modal-body">
+      
+            <p>Lorem ipsum dolor,sit auris et ex at eros suscipit</p>
+            <div class="folder-form">
+                @using (Html.BeginForm("UpdateFolder", "Main", FormMethod.Post))
+                {
+                    @Html.HiddenFor(m=>m.FOLDERID)
+                    @*<input type="text" name="Folder Name" placeholder="Folder Name">*@
+                    @Html.TextBoxFor(m=>m.FOLDERNAME)
+                    <input type="submit" name="Update" value="Update">
+                }
+            </div>
+        </div>
+
+        <div class="folder-modal-footer">
+            sdfsdf
+        </div>
+    </div>
+</div>

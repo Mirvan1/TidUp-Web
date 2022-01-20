@@ -1,0 +1,28 @@
+﻿@model TidUpWeb.Models.TBLUSER
+
+
+<div class="login-modal" id="login-modal">
+    <div class="login-modal-content">
+        <div class="login-modal-header">
+            <span class="login-close">&times;</span>
+            <h2>Login</h2>
+        </div>
+
+        <div class="login-modal-body">
+            <h3>Welcome Back!</h3>
+            <p>Lorem ipsum dolor,sit auris et ex at eros suscipit</p>
+            <div class="login-form">
+               @using(Html.BeginForm("LoginM", "Login", FormMethod.Post))
+               {
+                    <input type="email" name="EMAIL" placeholder="Email">
+                    <input type="password" name="PASSWORD" placeholder="Password">
+                    <input type="submit" name="SignUp" value="Login">
+               }
+            </div>
+        </div>
+
+        <div class="login-modal-footer">
+            sdfsdf
+        </div>
+    </div>
+</div>

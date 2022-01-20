@@ -1,0 +1,40 @@
+﻿
+
+
+<div class="additem-modal" id="additem-modal">
+    <div class="additem-modal-content">
+        <div class="additem-modal-header">
+            <span class="additem-close">&times;</span>
+            <h2>Add Item</h2>
+        </div>
+
+        <div class="additem-modal-body">
+            @*<h3>Welcome Back!</h3>
+                <p>Lorem ipsum dolor,sit auris et ex at eros suscipit</p>*@
+            <div class="additem-form">
+                @using (Html.BeginForm("AddItem", "Main", FormMethod.Post,new { enctype="multipart/form-data"}))
+                {
+                    <input type="hidden" name="PRODUCTID" />
+                    <input type="text" name="NAME" placeholder="Name">
+                    <input type="number" name="PRICE" placeholder="Price">
+                    <input type="date" name="DATE" placeholder="Date">
+                    <input type="number" name="QUANTITY" placeholder="Quantity">
+                    <input type="hidden" name="FOLDERID" value="@TempData["folder_id"]" placeholder="Folder">
+                    @*<input type="te" name="NOTE" placeholder="Add Folder">*@
+                    @*<label for="photo">Upload Image</label>*@
+                    <input type="file" accept="image/*" name="PHOTO" id="photo"/>
+
+                    <input type="number" name="BARCODE" placeholder="Barcode">
+                    <textarea name="NOTE" placeholder="Notes"></textarea>
+                    <input type="submit" name="AddItem" value="Add Item">
+                }
+            </div>
+        </div>
+
+        <div class="additem-modal-footer">
+            sdfsdf
+        </div>
+    </div>
+</div>
+
+

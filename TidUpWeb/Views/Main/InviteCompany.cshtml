@@ -1,0 +1,34 @@
+﻿
+
+@model TidUpWeb.Models.TBLUSER
+
+
+<div class="invite-modal" id="invite-modal">
+    <div class="invite-modal-content">
+        <div class="invite-modal-header">
+            <span class="invite-close">&times;</span>
+            <h2>Invite People</h2>
+        </div>
+
+        <div class="invite-modal-body">
+            @*<h3>Welcome Back!</h3>*@
+            <p>Lorem ipsum dolor,sit auris et ex at eros suscipit</p>
+            <div class="invite-form">
+                @using (Html.BeginForm("InviteCompany", "Main", FormMethod.Post))
+                {
+                        @Html.HiddenFor(m=>m.ID)
+                    @*<input type="email" name="EMAIL" placeholder="Email">*@
+                    @Html.TextBoxFor(m => m.EMAIL, new { @placeholder="Email"})
+                    <input type="submit" name="Invite" value="Invite" />
+
+                }
+            </div>
+        </div>
+
+        <div class="invite-modal-footer">
+            sdfsdf
+        </div>
+    </div>
+</div>
+
+

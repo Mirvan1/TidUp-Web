@@ -1,0 +1,167 @@
+﻿
+@{
+    Layout = null;
+
+  
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="~/rescss7/style.css" type="text/css">
+    <link rel="stylesheet" href="~/rescss7/fontawesome/css/all.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&family=Poppins:ital,wght@0,100;0,200;1,300&family=Raleway:wght@100&family=Spline+Sans:wght@300&display=swap" rel="stylesheet">
+    <title></title>
+
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+</head>
+<body>
+
+    <nav>
+        <div class="navbar">
+            <div class="logo">
+                <img src="~/rescss7/images/logo.svg">
+            </div>
+            <div class="links">
+                <ul class="links-list">
+                    <li><a href="">Home Page</a></li>
+                    <li><a href="">How It Works</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact</a></li>
+                </ul>
+            </div>
+            <div class="logapp">
+                <button class="signbtn" id="signbtn"><a href="">Sign Up</a></button>
+                <button class="lgnbtn" id="lgnbtn"><a href="">Login</a></button>
+
+
+                @Html.Action("SignUpM", "Login")
+
+
+                @Html.Action("LoginM", "Login")
+            </div>
+            <div class="mob-menu">
+                <button id="toggle-menu" onclick="toggleShowClose()"><i class="fas fa-bars fa-2x"></i></button>
+            </div>
+        </div>
+        <div class="mob-menu-list" id="mob-menu-ham">
+            <ul class="links-list mob">
+                <li><a href="">Home Page</a></li>
+                <li><a href="">How It Works</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="section1 ">
+        <div class="intro-text">
+            @*<p> @ViewBag.comp</p>*@
+            <h2>Manage your <span> company</span> easily </h2>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        </div>
+        <div class="intro-banner">
+            <img src="https://picsum.photos/200/300" alt="" id="banner">
+        </div>
+    </section>
+
+
+    <section>
+        <div class="cards">
+
+            <div class="prop-card">
+                <div class="icon">
+                    <div class="circle">
+                        <i class="fab fa-redhat fa-2x"></i>
+                    </div>
+                </div>
+                <div class="text">
+                    <h3>It is a long established fact</h3>
+                    <p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
+                </div>
+            </div>
+
+            <div class="prop-card">
+                <div class="icon">
+                    <div class="circle">
+                        <i class="fab fa-redhat fa-2x"></i>
+                    </div>
+                </div>
+                <div class="text">
+                    <h3>It is a long established fact</h3>
+                    <p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
+                </div>
+            </div>
+
+            <div class="prop-card">
+                <div class="icon">
+                    <div class="circle">
+                        <i class="fab fa-redhat fa-2x"></i>
+                    </div>
+                </div>
+                <div class="text">
+                    <h3>It is a long established fact</h3>
+                    <p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <footer>
+        <div class="footer">
+            <div class="footer-list">
+                <a href="">About Us</a>
+                <ul>
+                    <li><a href="">Lorem ipsum</a></li>
+                    <li><a href="">Nulla fringilla</a></li>
+                    <li><a href="">Nullam</a></li>
+                    <li><a href="">Proin enim</a></li>
+                    <li><a href="">Mauris</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-list">
+                <a href="">About Us</a>
+                <ul>
+                    <li><a href="">Lorem ipsum</a></li>
+                    <li><a href="">Nulla fringilla</a></li>
+                    <li><a href="">Nullam</a></li>
+                    <li><a href="">Proin enim</a></li>
+                    <li><a href="">Mauris</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-list">
+                <a href="">About Us</a>
+                <ul>
+                    <li><a href="">Lorem ipsum</a></li>
+                    <li><a href="">Nulla fringilla</a></li>
+                    <li><a href="">Nullam</a></li>
+                    <li><a href="">Proin enim</a></li>
+                    <li><a href="">Mauris</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="~/rescss7/scripts.js"></script>
+    <script src="~/rescss7/login-modal.js"></script>
+
+    <script src="~/rescss7/slide-company.js"></script>
+
+    <script src="~/rescss7/toggle_index.js"></script>
+</body>
+<script src="~/rescss7/create-comp-dropdown.js"></script>
+
+<script src="~/rescss7/join-comp-dropdown.js"></script>
+</html>

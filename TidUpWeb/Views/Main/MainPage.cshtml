@@ -1,0 +1,79 @@
+﻿@using TidUpWeb.Models
+@model List<TBLFOLDER>
+
+@{
+    ViewBag.Title = "MainPage";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+<div class="section">
+    <div class="section-nav">
+        <div class="texts">
+            <div class="custom-well">
+                <h2>Folders</h2>
+            </div>
+            <div class="search-box">
+                @using (Html.BeginForm("MainPage", "Main", FormMethod.Get))
+                {
+                    <input type="text" name="search" class="search" id="search" placeholder="Search">
+
+                    <i class="fas fa-search fa-2x"></i>
+                }
+            </div>
+
+            <div class="fold">
+                <p>Folders: @ViewBag.numFolder | Items: @ViewBag.numItems</p>
+                <div class="add-btn-grp">
+                    <button id="addfolderbtn"><i class="fas fa-plus"></i> Add Folder</button>
+                    @*<div class="add-btn-wrap-content">
+                            <button id="addfolderbtn"><i class="fas fa-plus"></i> Add Folder</button>
+                            <button id="addfolderbtn"><i class="fas fa-plus"></i> Add Folder</button>
+                        </div>*@
+                </div>
+            </div>
+            @Html.Action("AddFolder", "Main")
+        </div>
+
+    </div>
+    <div class="folder-cards">
+        @{int count = 1;}
+
+
+        @foreach (var x in Model)
+        {
+            <div class="fld-crd">
+                <a href="/Main/ItemList/@x.FOLDERID" style="text-decoration:none; color:black;">
+                    <div class="folder-icon">
+                        <i class="fas fa-folder fa-10x"></i>
+                    </div>
+                    <div class="folder-info">
+                        <h3>@x.FOLDERNAME</h3>
+                        <p>Number</p>
+                    </div>
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <div class="folder-props">
+                            <a href="/Main/DeleteFolder/@x.FOLDERID" class="folder-a"><i class="far fa-trash-alt del"></i></a>
+                            <button class="folder-a" id="up-folder-@x.FOLDERID" onclick="bClUp(@x.FOLDERID)"><i class="fas fa-pen-alt up"></i></button>
+                            @Html.Action("UpdateFolder", "Main", new { id = x.FOLDERID })
+
+                            @*@Html.ActionLink(".", "UpdateFolder", "Main", new { id = x.FOLDERID }, new { @class = "folder-a fas fa-pen-alt up", id = "folder-a", onclick = "atagClUp(@count);" })*@
+                        </div>
+                    }
+                </a>
+            </div>
+            count++;
+
+        }
+
+
+    </div>
+
+</div>
+
+
+
+<script src="~/rescss7/update-folder.js"></script>
+
+<script src="~/rescss7/add-folder.js"></script>
+

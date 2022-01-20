@@ -1,0 +1,57 @@
+﻿@using TidUpWeb.Models
+@model List<TBLUSER> 
+
+
+@{
+    ViewBag.Title = "AssignManager";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+
+    <div class="section-manage">
+
+        <div class="header">
+            <div class="texts">
+                <div class="custom-well">
+                    <h2>Assign Manager to Company</h2>
+                </div>
+                <div class="search-box">
+                    @using (Html.BeginForm("AssignManager", "Manager", FormMethod.Get))
+                    {
+                        <input type="text" name="search" class="search" id="search" placeholder="Search">
+
+                        <i class="fas fa-search fa-2x"></i>
+                  
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="list-employee custom-well">
+            <div class="employees">
+                <ul class="ulist-employee">
+                    @{int count = 1; } 
+                    @foreach (var x in Model)
+                    {
+                    <li onclick="window.location='/Manager/SetManager/@x.ID'" style="cursor:pointer;">
+
+                        <a id="num">@count</a>
+                        <h6></h6>
+                        <p>@x.USERNAME</p>
+                        @*@Html.BeginForm("", "Manager", FormMethod.Post){   }*@
+                        <a href="/Manager/SetManager/@x.ID" id="setManager">Manager</a>
+                        @*<input type="submit" name="AsManager" value="Assign" />*@
+
+                    </li>
+                     count++;
+                    
+                    }
+              
+
+                </ul>
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,97 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="~/rescss7/style.css" type="text/css">
+    <link rel="stylesheet" href="~/rescss7/fontawesome/css/all.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&family=Poppins:ital,wght@0,100;0,200;1,300&family=Raleway:wght@100&family=Spline+Sans:wght@300&display=swap" rel="stylesheet">
+    <title></title>
+
+
+
+
+</head>
+<body>
+    @{Html.RenderAction("ProfileHeader", "Main");
+    }
+
+
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <img src="">
+        </div>
+
+        <div class="lists-div" id="lists-div">
+            <ul class="side-list" id="side-list">
+                <li class="nav-el" onclick="window.location='/Dashboard/Dashboard'" id="nav-el">
+                    <i class="fas fa-chart-line"></i>
+                    <a href="/Dashboard/Dashboard">Dashboard</a>
+                </li>
+                <li class="nav-el active" onclick="window.location='/Main/MainPage'" id="nav-el">
+                    <i class="fas fa-folder"></i>
+                    <a href="/Main/MainPage">All Items</a>
+                </li>
+                <li class="nav-el" onclick="window.location='/Profile/EditProfile'" id="nav-el">
+                    <i class="fas fa-user-edit"></i>
+                    <a href="/Profile/EditProfile">Edit Profile</a>
+                </li>
+                @if (User.IsInRole("Manager"))
+                {
+                    <li class="nav-el" id="nav-el">
+                        <i class="fas fa-envelope"></i>
+                        <button type="button" id="invite-man-a">Invite Company</button>
+
+                    </li>
+                }
+                @if (User.IsInRole("Manager"))
+                {
+                    <li class="nav-el" onclick="window.location='/Manager/AssignManager/'" id="nav-el">
+                        <i class="fas fa-user-friends"></i>
+                        <a href="/Manager/AssignManager/">Assign Manager</a>
+                    </li>
+                }
+                <li class="nav-el" onclick="window.location='/Main/ExportData/'" id="nav-el">
+                    <i class="fas fa-file-export"></i>
+                    <a href="/Main/ExportData/">Export Data</a>
+                </li>
+                <li class="nav-el" onclick="window.location='/Login/Logout/'" id="nav-el">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <a href="/Login/Logout/">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>@{Html.RenderAction("InviteCompany", "Main");}</div>
+
+    @RenderBody()
+    @if (User.IsInRole("Manager"))
+    {
+        <script src="~/rescss7/invite-manager.js"></script>
+    }
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="~/rescss7/menu_active.js"></script>
+    <script>
+
+
+        var listElements = document.getElementById('nav-el');
+        $(document).ready(function () {
+            if (document.getElementsByClassName("active")!=null) {
+                
+                listElements.className.replace("nav-el active", "nav-el");
+            }
+        });
+
+
+    </script>
+
+</body>
+</html>

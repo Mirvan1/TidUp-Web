@@ -1,0 +1,62 @@
+﻿@model TidUpWeb.Models.TBLUSER
+
+
+ 
+
+<div class="sign-modal" id="sign-modal">
+    <div class="sign-modal-content">
+        <div class="sign-modal-header">
+            <span class="sign-close">&times;</span>
+            <h2>Sign Up</h2>
+        </div>
+
+        <div class="sign-modal-body">
+            <h3>We are excited!</h3>
+            <p>Lorem ipsum dolor,sit auris et ex at eros suscipit</p>
+            @using (Html.BeginForm("SignUpM", "Login", FormMethod.Post))
+            {
+                <div class="sign-form" id="sign-form">
+
+                    <input type="email" id="EMAIL" name="EMAIL" placeholder="Email" >
+                    <input type="text" id="USERNAME" name="USERNAME" placeholder="Username" >
+                    <input type="password" id="PASSWORD" name="PASSWORD" placeholder="Password" >
+                    <input type="button" name="SignUp" value="Sign Up" id="signUpIn" disabled>
+
+                </div>
+
+                <div class="company-choose" id="company-choose">
+                    <input type="button" id="crtcmp" name="SignUp" value="Create Company" class="dropCreateBtn" onclick="crtCmpFunc()">
+                    <div class="create-cmp-content" id="create-cmp-content">
+                        <input type="text" name="COMPANYNAME" placeholder="Company Name" >
+                        <input type="submit" name="crt-cmp-btn" value="Continue">
+                    </div>
+                    <div class="divider">
+                        <hr class="line">
+                        <p>OR</p>
+                        <hr class="line">
+                    </div>
+                    <input type="button" name="SignUp" value="Join Company" id="jncmp" class="dropJoinBtn" onclick="jnCmpFunc()">
+                    <div class="join-cmp-content" id="join-cmp-content">
+                        <input type="text" name="COMPANYCODE" placeholder="Company Code">
+                        <input type="submit" name="jn-cmp-btn" value="Continue">
+                    </div>
+                    <div class="wait-invite">
+                        <input type="submit" name="WaitInvite" value="Wait for invite" />
+                    </div>
+                </div>
+
+
+
+            }
+        </div>
+
+        <div class="sign-modal-footer">
+            sdfsdf
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/rescss7/signup_disabled.js"></script>

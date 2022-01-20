@@ -1,0 +1,64 @@
+﻿@using TidUpWeb.Models
+@model List<TBLPRODUCT>
+@{
+    ViewBag.Title = "ItemList";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+
+    <div class="items-section">
+        <div class="items-section-nav">
+            <div class="items-texts">
+                <div class="custom-well">
+                    <h2><a href="/Main/MainPage" style="text-decoration:none;color:black;">Folders</a> \ @ViewBag.folderNameB </h2>
+                </div>
+                <div class="items-search-box">
+                    @using (Html.BeginForm("ItemList", "Main", FormMethod.Post))
+                    {
+                        <input type="text" name="itemSearch" class="items-search" id="items-search" placeholder="Search">
+
+                        <i class="fas fa-search fa-2x"></i>
+                    }
+                </div>
+               
+                <div class="add-item-sec">
+                    <p>Total Items: @ViewBag.numOfItemsFolder</p>
+
+                    <button  id="additembtn"><i class="fas fa-plus"></i> Add Item</button>
+
+                </div>
+                @Html.Action("AddItem","Main")
+            </div>
+        </div>
+        <div class="items-folder-cards">
+            @foreach (var x in Model)
+            {
+        
+
+                <div class="items-fld-crd">
+                    <a href="/Main/ItemDetail/@x.PRODUCTID" style="text-decoration:none; color:black;">
+                        
+                        <div class="items-folder-icon">
+                            <img src="@x.PHOTO" alt="Alternate Text"  width="160px" height="160px"/>
+                        </div>
+                        <div class="items-folder-info">
+                            @if (x.NAME == null || x.NAME.Length < 16)
+                            {
+                            <h3 title="@x.NAME">@x.NAME</h3>
+                            }
+                            else
+                            {<h3 title="@x.NAME">@x.NAME.Substring(0, 13)...</h3>
+                                
+                            }
+                            <p>@x.PRICE</p>
+                        </div>
+                    </a>
+            </div>
+            }
+
+        </div>
+
+
+    </div>
+
+    <script src="~/rescss7/add-item.js"></script>

@@ -1,0 +1,39 @@
+﻿
+@model TidUpWeb.Models.TBLPRODUCT
+
+
+<div class="update-modal" id="update-modal">
+    <div class="update-modal-content">
+        <div class="update-modal-header">
+            <span class="update-close">&times;</span>
+            <h2>Update</h2>
+        </div>
+
+        <div class="update-modal-body">
+            @*<h3>Welcome Back!</h3>
+            <p>Lorem ipsum dolor,sit auris et ex at eros suscipit</p>*@
+            <div class="update-form">
+                @using (Html.BeginForm("GetItemInfo", "Main", FormMethod.Post))
+                {
+                    @Html.HiddenFor(m => m.PRODUCTID)
+                    @Html.TextBoxFor(m => m.NAME, new { @class = "update-text" })
+                    @Html.TextBoxFor(m => m.PRICE, new { @class = "update-text" })
+                    @Html.TextBoxFor(m => m.DATE, new { @class = "update-text" })
+                    @Html.TextBoxFor(m => m.BARCODE, new { @class = "update-text" })
+
+                    @Html.TextBoxFor(m => m.QUANTITY, new { @class = "update-text" })
+                    @Html.TextAreaFor(m => m.NOTE, new { @class = "update-text" })
+                    @*<input type="email" name="EMAIL" placeholder="Email">
+            <input type="password" name="PASSWORD" placeholder="Password">
+            <input type="submit" name="SignUp" value="Login">*@
+
+                    <input type="submit" name="Save" value="Save Changes" />
+                }
+            </div>
+        </div>
+
+        <div class="update-modal-footer">
+            sdfsdf
+        </div>
+    </div>
+</div>

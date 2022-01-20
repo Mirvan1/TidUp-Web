@@ -1,0 +1,26 @@
+﻿
+<div class="all-header">
+    <div class="prof-wrap">
+        <div class="all-prof">
+            <div class="circ-text">
+                <p>@Session["username"].ToString().Substring(0, 1)</p>
+            </div>
+            <div class="prof-dash">
+                <p>@Session["username"]</p>
+            </div>
+        </div>
+            <div class="drop-wrap-content">
+                <div class="drop-info">
+                    <p>@Session["comp"]</p>
+                    <p>@Session["userrole"]</p>
+                </div>
+                <hr>
+                <div class="drop-btns">
+                    <a href="/Profile/EditProfile/">Edit Profile</a>
+                    <a href="/Login/Logout/">Logout</a>
+                </div>
+
+            </div>
+      
+    </div>
+</div>
